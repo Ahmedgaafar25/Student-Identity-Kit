@@ -393,6 +393,7 @@
             z-index: 20; 
             pointer-events: none;
             animation: gloss-shimmer 8s infinite;
+            will-change: opacity;
         }
         
         @keyframes gloss-shimmer {
@@ -421,6 +422,7 @@
             height: 100%;
             background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
             animation: header-shine 3s infinite;
+            will-change: transform;
         }
         
         @keyframes header-shine {
@@ -630,7 +632,8 @@
                 rgba(255, 255, 255, 0.95) 50%, 
                 rgba(147, 197, 253, 0.8) 60%,
                 transparent 70%); 
-            animation: holo-flash 3s infinite linear; 
+            animation: holo-flash 3s infinite linear;
+            will-change: transform;
         }
         @keyframes holo-flash { 
             0% { transform: translateY(100%) rotate(45deg); } 
@@ -1238,6 +1241,23 @@
             .certificate-container { width: 100%; height: auto; aspect-ratio: 1.4/1; transform: scale(0.9); transform-origin: top center; padding: 20px; }
             .cert-title { font-size: 32px; }
             .cert-name { font-size: 18px; }
+        }
+
+        /* === ACCESSIBILITY - REDUCED MOTION === */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .gloss-overlay,
+            .header-bg::before,
+            .hologram::after {
+                animation: none !important;
+            }
         }
 
         /* === PRINT STYLES === */
